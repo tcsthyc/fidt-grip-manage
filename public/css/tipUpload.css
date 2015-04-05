@@ -1,0 +1,29 @@
+form {
+	margin: 30px 15px;
+	padding-top: 15px;
+	text-align: center;
+	border: 1px solid #DDD;
+}
+
+h2 {
+	margin-left: 15px;
+}
+
+.list-item{
+	margin-bottom: 15px;
+}
+
+#content-area{
+	height: 150px;
+	resize: none;
+}
+
+#content-label{
+	position: relative;
+	top: -135px;
+}
+
+.item-text{
+	margin-left: 5px;
+	border: 1px solid #DDD;
+}

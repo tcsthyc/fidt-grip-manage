@@ -1,0 +1,21 @@
+.navi-list{
+	overflow: hidden;
+	padding: 0;
+}
+
+.navi-item{
+	width: 50%;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	float: left;
+	background-color: #f8f8f8;
+	text-align: center;
+	color: #777;
+	border-left: 1px solid #DDD;
+	margin-left: -1px;
+}
+
+.navi-item:hover{
+	background-color: #DDD;
+	text-decoration: none;
+}
