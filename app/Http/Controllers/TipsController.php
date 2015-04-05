@@ -15,24 +15,26 @@ class TipsController extends Controller {
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+
+	public function getIndex(){
+		return redirect(url('tips/all'));
+	}
+	
+	public function getAll(Request $request)
 	{
-		return view('grip/tipUpload');
+		$page=1;
+		if($request->input('page')){
+			$page=$request->input('page');
+		}
+		
+		$pageSize=20;
+
+		$tips= HealthTip::with('user') -> limit($pageSize) -> offset(($page-1)*$pageSize) -> orderby('updated_at') -> get();
+		return view('grip/showAllTips',['tips' => $tips]);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+	public function getUpload(){
+		return view('grip/tipUpload');
 	}
 
 	/**
@@ -40,59 +42,16 @@ class TipsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function postUpload(Request $request)
 	{
 		if($request -> user()){
 			$healthTip = new HealthTip;
-			$healthTip -> user() -> save($request -> user());
+			$healthTip -> user() -> associate($request -> user());
 			$healthTip -> title = $request -> input('title');
 			$healthTip -> content = $request -> input('content');
 			$healthTip -> save();
 		}
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		return redirect(url('tips/all'));
 	}
 
 }

@@ -21,5 +21,4 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-
-Route::resource('tips','TipsController');
+Route::controller('tips','TipsController');

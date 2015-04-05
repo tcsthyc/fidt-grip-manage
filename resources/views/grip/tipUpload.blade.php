@@ -7,7 +7,7 @@
 
 @section('content')
 <h2>贴士上传</h2>
-<form class="list" method="post" action="{{ url('/tips') }}">
+<form class="list" method="post" action="{{ url('/tips/upload') }}">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="list-item">
 		<label>贴士标题</label>
