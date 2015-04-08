@@ -22,3 +22,4 @@ Route::controllers([
 ]);
 
 Route::controller('tips','TipsController');
+Route::controller('api','APIController');
