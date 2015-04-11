@@ -24,8 +24,4 @@ class GripDataController extends Controller {
 		$pageSize=20;
 	}
 
-	public function postStore(Request $request){
-
-	}
-
 }

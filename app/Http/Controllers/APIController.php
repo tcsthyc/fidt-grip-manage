@@ -7,10 +7,34 @@ use Illuminate\Http\Request;
 
 class APIController extends Controller {
 
+	public function __construct(){
+		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord']]);
+	}
+
 	public function getTips(){
 
 	}
 
-	//data - 1. daily record, 2. measure data
-	//tester(/customer) - 1. sign in, 2. sign up
+	public function postDailyRecord(Request $Request){
+
+	}
+
+	public function postMeasureRecord(Request $request){
+		return "hi";
+	}
+
+	public function getHistoricalData(Request $request){
+		$result=array(['hello'=>'world'],["test"=>"data"]);
+		return json_encode($result);
+	}
+
+	//app端不需要login，可用https协议
+	/*public function postLogin(Request $request){
+
+	}*/
+
+	public function postRegister(Request $request){
+
+	}
+
 }
