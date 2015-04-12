@@ -16,7 +16,7 @@ class CreateCustomersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('name');
+			$table->string('name')->unique();
 			$table->string('password',60);
 			$table->tinyInteger('age');
 			$table->float('height');

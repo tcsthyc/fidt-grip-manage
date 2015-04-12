@@ -12,7 +12,7 @@ class DailyStatus extends Model {
 	protected $fillable = ['record_local_time','exercise_type', 'exercise_total_time','had_breakfast','had_lunch','had_supper'];
 
 	//user relation
-	public function user(){
+	public function customer(){
 		return $this->belongsTo('App\Customer','customer_id');
 	}
 
