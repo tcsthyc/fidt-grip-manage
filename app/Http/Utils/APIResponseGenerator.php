@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Http\Utils;
 class APIResponseGenerator{
 
 	private $succeed;

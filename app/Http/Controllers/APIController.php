@@ -11,11 +11,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use App\HealthTip;
 use App\Customer;
 use App\DailyStatus;
-use App\APIResponseGenerator as APIResponse;
+use App\Http\Utils\APIResponseGenerator as APIResponse;
 
 class APIController extends Controller {
 
@@ -30,8 +31,8 @@ class APIController extends Controller {
 			$page=$request->page;
 		}
 
-		$tipData=HealthTip::forPage($page,$pageSize)->toJson();
-		return APIResponse::successResult($tipData);
+		$tipData=HealthTip::forPage($page,$pageSize)-> get();
+		return APIResponse::successResult($tipData-> toArray());
 	}
 
 	//如果当天有数据则更新，否则新建记录
@@ -76,7 +77,28 @@ class APIController extends Controller {
 	}
 
 	public function postMeasureRecord(Request $request){
-		return "hi";
+		$customerName=$request->username;
+		$customer=Customer::where('name',$customerName);
+
+		$measureRecord= new MeasureRecord;
+		$measureRecord-> record_local_time= $request-> recordLocalTime;
+		$measureRecord-> total_mvc= $request-> totalMVC;
+		$measureRecord-> total_endurance= $request-> totalEndurance;
+		$measureRecord-> total_explosive= $request-> totalExplosive;
+		$measureRecord-> index_mvc= $request-> indexMVC;
+		$measureRecord-> index_endurance= $request-> indexEndurance;
+		$measureRecord-> index_explosive= $request-> indexExplosive;
+		$measureRecord-> middle_mvc= $request-> middleMVC;
+		$measureRecord-> middle_endurance= $request-> middleEndurance;
+		$measureRecord-> middle_explosive= $request-> middleExplosive;
+		$measureRecord-> ring_mvc= $request-> ringMVC;
+		$measureRecord-> ring_endurance= $request-> ringEndurance;
+		$measureRecord-> ring_explosive= $request-> ringExplosive;
+		$measureRecord-> little_mvc= $request-> littleMVC;
+		$measureRecord-> little_endurance= $request-> littleEndurance;
+		$measureRecord-> little_explosive= $request-> littleExplosive; 
+		$measureRecord-> customer()-> associate($customer);
+		$measureRecord-> save();
 	}
 
 	public function getHistoricalData(Request $request){
@@ -90,7 +112,15 @@ class APIController extends Controller {
 	}*/
 
 	public function postRegister(Request $request){
-
+		$customer= new Customer;
+		$customer-> name= $request-> name;
+		$customer-> password= Hash::make($request->password);
+		$customer-> age= $request-> age;
+		$customer-> sex= $request-> sex;
+		$customer-> height= $request-> height;
+		$customer-> weight= $request-> weight;
+		$customer-> bfp= $request-> bodyFatPercentage;
+		$customer-> save();
 	}
 
 }

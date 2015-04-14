@@ -21,7 +21,7 @@ class CustomerAuthenticate {
 			if(!$record){
 				return APIResponse::errorResult("user does not exist");
 			}
-			else if( $record!=$request.password ){
+			else if(!Hash::check($request->password,$record)){
 				return APIResponse::errorResult("incorrect password");
 			}			
 		}
