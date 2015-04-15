@@ -21,7 +21,7 @@ use App\Http\Utils\APIResponseGenerator as APIResponse;
 class APIController extends Controller {
 
 	public function __construct(){
-		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord']]);
+		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord','getTest']]);
 	}
 
 	public function getTips(Request $request){
@@ -121,6 +121,10 @@ class APIController extends Controller {
 		$customer-> weight= $request-> weight;
 		$customer-> bfp= $request-> bodyFatPercentage;
 		$customer-> save();
+	}
+
+	public function getTest(Request $request){
+		return "good";
 	}
 
 }

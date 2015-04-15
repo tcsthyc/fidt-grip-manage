@@ -1,8 +1,9 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
-use App\APIResponseGenerator as APIResponse;
-use App\Customer
+use Illuminate\Support\Facades\Hash;
+use App\Http\Utils\APIResponseGenerator as APIResponse;
+use App\Customer;
 
 class CustomerAuthenticate {
 
@@ -15,9 +16,8 @@ class CustomerAuthenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		$requstObj=json_decode($request);
-		if($requstObj && $request.username && $request.password){
-			$record=Customer::where('name',$request.username)->pluck('password');
+		if($request && $request->username && $request->password){
+			$record=Customer::where('name',$request->username)->pluck('password');
 			if(!$record){
 				return APIResponse::errorResult("user does not exist");
 			}
