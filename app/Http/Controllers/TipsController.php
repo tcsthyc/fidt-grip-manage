@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Utils\TipModel;
 
 use Illuminate\Http\Request;
 
@@ -45,11 +46,13 @@ class TipsController extends Controller {
 	 */
 	public function postUpload(Request $request)
 	{
+		var_dump($request);
 		if($request -> user()){
 			$healthTip = new HealthTip;
 			$healthTip -> user() -> associate($request -> user());
 			$healthTip -> title = $request -> input('title');
-			$healthTip -> content = $request -> input('content');
+			$tipModel= new TipModel($request->input('question'),$request-> input('answer'));
+			$healthTip -> content = $tipModel-> toString();
 			$healthTip -> save();
 		}
 		return redirect(url('tips/all'));
