@@ -46,12 +46,11 @@ class TipsController extends Controller {
 	 */
 	public function postUpload(Request $request)
 	{
-		var_dump($request);
 		if($request -> user()){
 			$healthTip = new HealthTip;
 			$healthTip -> user() -> associate($request -> user());
 			$healthTip -> title = $request -> input('title');
-			$tipModel= new TipModel($request->input('question'),$request-> input('answer'));
+			$tipModel = new TipModel($request-> input('question'),$request-> input('answer'));
 			$healthTip -> content = $tipModel-> toString();
 			$healthTip -> save();
 		}
