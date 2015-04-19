@@ -21,7 +21,7 @@ use App\Http\Utils\APIResponseGenerator as APIResponse;
 class APIController extends Controller {
 
 	public function __construct(){
-		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord','getTest']]);
+		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord']]);
 	}
 
 	public function getTips(Request $request){
@@ -31,8 +31,12 @@ class APIController extends Controller {
 			$page=$request->page;
 		}
 
-		$tipData=HealthTip::forPage($page,$pageSize)-> get();
-		return APIResponse::successResult($tipData-> toArray());
+		$tipDataArray=HealthTip::forPage($page,$pageSize)-> get()-> toArray();
+		foreach ($tipDataArray as $key => $value) {
+			$value['content']= json_decode($value['content'],true);
+			$tipDataArray[$key] = $value;
+		}
+		return APIResponse::successResult($tipDataArray);
 	}
 
 	//如果当天有数据则更新，否则新建记录
@@ -124,7 +128,12 @@ class APIController extends Controller {
 	}
 
 	public function getTest(Request $request){
-		return "good";
+		$ar=[
+			'te' => "123",
+			'arr' => ['1' => 'word', '2' => 'word2']
+		];
+		print_r($ar);
+		return json_encode($ar);
 	}
 
 }
