@@ -1,0 +1,32 @@
+h2 {
+  margin-left: 15px;
+}
+
+.operate-panel {
+  margin: 0 15px;
+  padding-top: 15px;
+  table {
+    border: none;
+    width: 100%;
+    td {
+      border: 1px solid #DDD;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: center;
+    }
+  }
+  .operate-bar {
+    text-align: right;
+    margin-bottom: 20px;
+    .button-add {
+      background-color: #539edf;
+      color: #ffffff;
+      padding: 8px 15px;
+      &:hover {
+        background-color: #3691e0;
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
+  }
+}
