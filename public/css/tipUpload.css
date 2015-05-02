@@ -1,35 +1,29 @@
 form {
-	margin: 30px 15px;
-	padding: 15px;
-	border: 1px solid #DDD;
-}
+  margin: 30px 15px;
+  padding: 15px;
+  border: 1px solid #DDD; }
 
 h2 {
-	margin-left: 15px;
-}
+  margin-left: 15px; }
 
+.content-area {
+  height: 150px;
+  resize: none;
+  border: 1px solid #DDD; }
 
-.content-area{
-	height: 150px;
-	resize: none;
-	border: 1px solid #DDD;
-}
+#content-label {
+  position: relative;
+  top: -135px; }
 
-#content-label{
-	position: relative;
-	top: -135px;
-}
+.item-text {
+  margin-left: 5px;
+  border: 1px solid #DDD; }
 
-.item-text{
-	margin-left: 5px;
-	border: 1px solid #DDD;
-}
+.content-item {
+  float: left;
+  width: 50%; }
 
-.content-item{
-	float: left;
-	width: 50%;
-}
+.tip-content {
+  margin-top: 30px; }
 
-.tip-content{
-	margin-top: 30px;
-}
+/*# sourceMappingURL=tipUpload.css.map */
