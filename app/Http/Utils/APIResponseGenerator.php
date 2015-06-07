@@ -1,4 +1,5 @@
 <?php namespace App\Http\Utils;
+
 class APIResponseGenerator{
 
 	private $succeed;
@@ -34,12 +35,13 @@ class APIResponseGenerator{
 
 	public static function successResult($data){
 		$re=['succeed'=> true,'data'=> $data, 'error'=>''];
-		return json_encode($re,JSON_UNESCAPED_UNICODE);
+		//return json_encode($re,JSON_UNESCAPED_UNICODE);
+		return response()->json($re);
 	}
 
 	public static function errorResult($err){
 		$re=['succeed'=> false, 'data'=> '', 'error'=> $err];
-		return json_encode($re,JSON_UNESCAPED_UNICODE);
+		return response()->json($re,JSON_UNESCAPED_UNICODE);
 	}
 }
 ?>
