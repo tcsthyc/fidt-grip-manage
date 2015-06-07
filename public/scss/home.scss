@@ -1,6 +1,7 @@
 .navi-list {
   overflow: hidden;
-  padding: 0; }
+  padding: 0;
+}
 
 .navi-item {
   width: 50%;
@@ -11,9 +12,9 @@
   text-align: center;
   color: #777;
   border-left: 1px solid #DDD;
-  margin-left: -1px; }
-  .navi-item:hover {
+  margin-left: -1px;
+  &:hover {
     background-color: #DDD;
-    text-decoration: none; }
-
-/*# sourceMappingURL=home.css.map */
+    text-decoration: none;
+  }
+}

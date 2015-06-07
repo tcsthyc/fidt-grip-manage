@@ -1,3 +1,6 @@
 /vendor
 /node_modules
 .env
+/autotools/node_modules
+/public/css/*.map
+.sass-cache

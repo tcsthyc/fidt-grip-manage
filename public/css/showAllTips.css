@@ -1,38 +1,27 @@
 h2 {
-	margin-left: 15px;
-}
+  margin-left: 15px; }
 
-.operate-panel{
-	margin: 0 15px;
-	padding-top: 15px;
-}
+.operate-panel {
+  margin: 0 15px;
+  padding-top: 15px; }
+  .operate-panel table {
+    border: none;
+    width: 100%; }
+    .operate-panel table td {
+      border: 1px solid #DDD;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: center; }
+  .operate-panel .operate-bar {
+    text-align: right;
+    margin-bottom: 20px; }
+    .operate-panel .operate-bar .button-add {
+      background-color: #539edf;
+      color: #ffffff;
+      padding: 8px 15px; }
+      .operate-panel .operate-bar .button-add:hover {
+        background-color: #3691e0;
+        color: #ffffff;
+        text-decoration: none; }
 
-.operate-panel table{
-	border: none;
-	width: 100%;
-}
-
-.operate-panel table td{
-	border: 1px solid #DDD;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	text-align: center;
-}
-
-.operate-panel .operate-bar{
-	text-align: right;
-	margin-bottom: 20px;
-}
-
-
-
-.operate-panel .operate-bar .button-add {
-	background-color: #539edf;
-	color: #ffffff;
-	padding: 8px 15px;
-}
-.operate-panel .operate-bar .button-add:hover {
-	background-color: #3691e0;
-	color:#ffffff;
-	text-decoration: none;
-}
+/*# sourceMappingURL=showAllTips.css.map */
