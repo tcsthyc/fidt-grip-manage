@@ -106,7 +106,14 @@ class APIController extends Controller {
 	}
 
 	public function getHistoricalData(Request $request){
-		$result=array(['hello'=>'world'],["test"=>"data"]);
+		$result=array(
+			['max'=>'40'],
+			["explosive"=>"200"],
+			["endurance"=>"20"],
+			["index"=>"10"],
+			["middle"=>"12"],
+			["ring"=>"9"],
+			["little"=>"6"]);
 		return json_encode($result);
 	}
 
