@@ -21,7 +21,7 @@ use App\Http\Utils\APIResponseGenerator as APIResponse;
 class APIController extends Controller {
 
 	public function __construct(){
-		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord']]);
+		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord','postLogin']]);
 	}
 
 	public function getTips(Request $request){
@@ -105,33 +105,52 @@ class APIController extends Controller {
 		$measureRecord-> save();
 	}
 
+	/**
+    * request example
+    * {
+    *   date: unix time,
+    *   username:"xxx",
+    *   password:"xxx"   
+    * }
+    */
 	public function getHistoricalData(Request $request){
+        $customer = Customer::where(name,$request->username);
+        $record = MeasureRecord::where('customer_id',$customer->id)->whereRaw('DateDiff(dd,updated_at,$currTime)=0');
+
+        if(!$record) return APIResponse::errorResult('no record matches the time');
+
 		$result=array(
-			['max'=>'40'],
-			["explosive"=>"200"],
-			["endurance"=>"20"],
-			["index"=>"10"],
-			["middle"=>"12"],
-			["ring"=>"9"],
-			["little"=>"6"]);
-		return json_encode($result);
+			['max'=> $record->total_mvc],
+			["explosive"=>$record->total_explosive],
+			["endurance"=>$record->total_endurance],
+			["index"=>$record->index_mvc],
+			["middle"=>$record->middle_mvc],
+			["ring"=>$record->ring_mvc],
+			["little"=>$record->little_mvc]);
+		return APIResponse::successResult($result);
 	}
 
-	//app端不需要login，可用https协议
-	/*public function postLogin(Request $request){
-
-	}*/
+	public function postLogin(Request $request){
+        return APIResponse::successResult('');
+	}
 
 	public function postRegister(Request $request){
-		$customer= new Customer;
-		$customer-> name= $request-> name;
-		$customer-> password= Hash::make($request->password);
-		$customer-> age= $request-> age;
-		$customer-> sex= $request-> sex;
-		$customer-> height= $request-> height;
-		$customer-> weight= $request-> weight;
-		$customer-> bfp= $request-> bodyFatPercentage;
-		$customer-> save();
+        try{
+    		$customer= new Customer;
+    		$customer-> name= $request-> username;
+    		$customer-> password= Hash::make($request->password);
+    		$customer-> age= $request-> age;
+    		$customer-> sex= $request-> sex;
+    		$customer-> height= $request-> height;
+    		$customer-> weight= $request-> weight;
+    		$customer-> bfp= $request-> bodyFatPercentage;
+    		$customer-> save();
+            return APIResponse::successResult('');
+        }
+        catch(Exception $e){
+            return APIResponse::errorResult('internal error');
+        }
+
 	}
 
 	public function getTest(Request $request){
