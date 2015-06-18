@@ -9,11 +9,19 @@ class Customer extends Model {
 
 	//cols
 	//bfp:body fat percentage
-	protected $fillable = ['name', 'password','age','height','weight','sex','bfp'];
+	protected $fillable = ['name','age','height','weight','sex','bfp','telephone'];
 
 	//user relation
 	public function user(){
 		return $this->belongsTo('App\Customer','user_id');
 	}
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = ['password'];
+
 
 }

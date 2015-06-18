@@ -11,7 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 
 use App\HealthTip;
 use App\Customer;
@@ -21,7 +21,7 @@ use App\Http\Utils\APIResponseGenerator as APIResponse;
 class APIController extends Controller {
 
 	public function __construct(){
-		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord','postLogin']]);
+		$this->middleware('customerVerify',['only' => ['postDailyRecord','postMeasureRecord']]);
 	}
 
 	public function getTips(Request $request){
@@ -128,29 +128,6 @@ class APIController extends Controller {
 			["ring"=>$record->ring_mvc],
 			["little"=>$record->little_mvc]);
 		return APIResponse::successResult($result);
-	}
-
-	public function postLogin(Request $request){
-        return APIResponse::successResult('');
-	}
-
-	public function postRegister(Request $request){
-        try{
-    		$customer= new Customer;
-    		$customer-> name= $request-> username;
-    		$customer-> password= Hash::make($request->password);
-    		$customer-> age= $request-> age;
-    		$customer-> sex= $request-> sex;
-    		$customer-> height= $request-> height;
-    		$customer-> weight= $request-> weight;
-    		$customer-> bfp= $request-> bodyFatPercentage;
-    		$customer-> save();
-            return APIResponse::successResult('');
-        }
-        catch(Exception $e){
-            return APIResponse::errorResult('internal error');
-        }
-
 	}
 
 	public function getTest(Request $request){
