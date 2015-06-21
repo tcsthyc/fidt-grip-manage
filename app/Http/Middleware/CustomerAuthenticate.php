@@ -19,14 +19,14 @@ class CustomerAuthenticate {
 		if($request && $request->username && $request->password){
 			$record=Customer::where('name',$request->username)->pluck('password');
 			if(!$record){
-				return APIResponse::errorResult("user does not exist");
+				return APIResponse::errorResult("用户不存在");
 			}
 			else if(!Hash::check($request->password,$record)){
-				return APIResponse::errorResult("incorrect password");
+				return APIResponse::errorResult("密码不正确");
 			}			
 		}
 		else{
-			return APIResponse::errorResult("illegal request format");
+			return APIResponse::errorResult("请求格式错误");
 		}
 
 		return $next($request);

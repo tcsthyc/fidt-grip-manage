@@ -26,6 +26,11 @@ class UserAPIController extends Controller {
 	}
 
 	public function postRegister(Request $request){
+        $customer = Customer::where(name,$request->username)
+        if($customer){
+            return APIResponse::errorResult('用户名已存在');
+        }
+
         try{
     		$customer= new Customer;
     		$customer-> name= $request-> username;
@@ -40,7 +45,7 @@ class UserAPIController extends Controller {
             return APIResponse::successResult('');
         }
         catch(Exception $e){
-            return APIResponse::errorResult('internal error');
+            return APIResponse::errorResult('服务器发生错误');
         }
 
 	}
