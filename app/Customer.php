@@ -9,7 +9,7 @@ class Customer extends Model {
 
 	//cols
 	//bfp:body fat percentage
-	protected $fillable = ['name','age','height','weight','sex','bfp','telephone'];
+	protected $fillable = ['name','age','height','weight','sex','bfp','telephone','avatar'];
 
 	//user relation
 	public function user(){

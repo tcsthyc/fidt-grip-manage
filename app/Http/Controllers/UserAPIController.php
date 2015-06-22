@@ -26,7 +26,7 @@ class UserAPIController extends Controller {
 	}
 
 	public function postRegister(Request $request){
-        $customer = Customer::where(name,$request->username)
+        $customer = Customer::where(name,$request->username);
         if($customer){
             return APIResponse::errorResult('用户名已存在');
         }

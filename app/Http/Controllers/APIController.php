@@ -130,6 +130,20 @@ class APIController extends Controller {
 		return APIResponse::successResult($result);
 	}
 
+	public function getQiniuToken(){
+		require_once("qiniu/rs.php");
+
+		$bucket = 'phpsdk';
+		$accessKey = 'nzWqNasrKCN8fzGiiZp6zq5zN-EeHyfcrRoOEz6e';
+		$secretKey = 'fRXhmSlDthD_0JqDGtaRMyMf5PxA0tDffaXJc90_';
+
+		Qiniu_SetKeys($accessKey, $secretKey);
+		$putPolicy = new Qiniu_RS_PutPolicy($bucket);
+		$upToken = $putPolicy->Token(null);
+
+		return APIResponse::successResult($upToken);
+	}
+
 	public function getTest(Request $request){
 		$ar=[
 			'te' => "123",
