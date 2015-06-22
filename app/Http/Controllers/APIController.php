@@ -18,6 +18,8 @@ use App\Customer;
 use App\DailyStatus;
 use App\Http\Utils\APIResponseGenerator as APIResponse;
 
+use Qiniu\Auth;
+
 class APIController extends Controller {
 
 	public function __construct(){
@@ -130,18 +132,13 @@ class APIController extends Controller {
 		return APIResponse::successResult($result);
 	}
 
-	public function getQiniuToken(){
-		require_once("qiniu/rs.php");
-
-		$bucket = 'phpsdk';
+	public function getQiniuToken(Request $request){
 		$accessKey = 'nzWqNasrKCN8fzGiiZp6zq5zN-EeHyfcrRoOEz6e';
 		$secretKey = 'fRXhmSlDthD_0JqDGtaRMyMf5PxA0tDffaXJc90_';
-
-		Qiniu_SetKeys($accessKey, $secretKey);
-		$putPolicy = new Qiniu_RS_PutPolicy($bucket);
-		$upToken = $putPolicy->Token(null);
-
-		return APIResponse::successResult($upToken);
+		$auth = new Auth($accessKey, $secretKey);
+		$bucket = 'phpsdk';
+		$token = $auth->uploadToken($bucket);
+		return APIResponse::successResult($token);
 	}
 
 	public function getTest(Request $request){
