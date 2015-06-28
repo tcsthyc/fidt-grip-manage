@@ -16,17 +16,25 @@ class UserAPIController extends Controller {
 		$this->middleware('customerVerify',['only' => ['postLogin','postUpdate']]);
 	}
 
-	public function getTest(){
+	public function getTest(Request $request){
+        $customer = Customer::where('name',$request->username);
+        if($customer){
+            print_r($customer);
+            echo "<p>";
+            print_r($customer->first());
+        }
+        print_r($request);
+        // $customer = Customer::where(name.)
 		return "test api for api/user";
 	}
 
 	public function postLogin(Request $request){
-        $customer = Customer::where(name,$request->username)->toArray();
+        $customer = Customer::where('name',$request->username)->toArray();
         return APIResponse::successResult($customer);
 	}
 
 	public function postRegister(Request $request){
-        $customer = Customer::where(name,$request->username);
+        $customer = Customer::where('name',$request->username);
         if($customer){
             return APIResponse::errorResult('用户名已存在');
         }
