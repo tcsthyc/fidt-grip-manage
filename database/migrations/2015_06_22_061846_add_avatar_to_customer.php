@@ -14,7 +14,7 @@ class AddAvatarToCustomer extends Migration {
 	{
 		Schema::table('customers', function(Blueprint $table)
 		{
-			$table-> string('avatar');
+			$table-> string('avatar')->nullable();
 		});
 	}
 

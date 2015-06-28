@@ -18,13 +18,9 @@ class UserAPIController extends Controller {
 
 	public function getTest(Request $request){
         $customer = Customer::where('name',$request->username);
-        if($customer){
+        if($customer->first()){
             print_r($customer);
-            echo "<p>";
-            print_r($customer->first());
         }
-        print_r($request);
-        // $customer = Customer::where(name.)
 		return "test api for api/user";
 	}
 
@@ -34,7 +30,7 @@ class UserAPIController extends Controller {
 	}
 
 	public function postRegister(Request $request){
-        $customer = Customer::where('name',$request->username);
+        $customer = Customer::where('name',$request->username)->first();
         if($customer){
             return APIResponse::errorResult('用户名已存在');
         }
@@ -43,14 +39,15 @@ class UserAPIController extends Controller {
     		$customer= new Customer;
     		$customer-> name= $request-> username;
     		$customer-> password= Hash::make($request->password);
-    		$customer-> age= $request-> age;
-    		$customer-> sex= $request-> sex;
-    		$customer-> height= $request-> height;
-    		$customer-> weight= $request-> weight;
-    		$customer-> bfp= $request-> bodyFatPercentage;
-            $customer-> phone= $request-> telephone;
+    		$customer-> age= $request->age? $request->age: 0;
+    		$customer-> sex= $request->sex? $request->sex: 0;
+    		$customer-> height= $request->height? $request->height: 0;
+    		$customer-> weight= $request->weight? $request->weight: 0;
+    		$customer-> bfp= $request->bodyFatPercentage?$request->bodyFatPercentage:0.0;
+            $customer-> telephone= $request->telephone;
+            $customer-> avatar= $request->avatar?$request->avatar:"";
     		$customer-> save();
-            return APIResponse::successResult('');
+            return APIResponse::successResult($customer->toArray());
         }
         catch(Exception $e){
             return APIResponse::errorResult('服务器发生错误');

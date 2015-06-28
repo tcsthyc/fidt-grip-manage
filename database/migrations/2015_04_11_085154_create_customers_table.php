@@ -21,8 +21,8 @@ class CreateCustomersTable extends Migration {
 			$table->tinyInteger('age');
 			$table->float('height');
 			$table->float('weight');
-			$table->enum('sex',array('male','female'));
-			$table->float('bfp');
+			$table->tinyInteger('sex')->default(0);
+			$table->float('bfp')->default(0);
 		});
 	}
 
