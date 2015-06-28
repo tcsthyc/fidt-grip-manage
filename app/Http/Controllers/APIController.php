@@ -142,12 +142,15 @@ class APIController extends Controller {
 	}
 
 	public function getTest(Request $request){
-		$ar=[
-			'te' => "123",
-			'arr' => ['1' => 'word', '2' => 'word2']
-		];
-		print_r($ar);
-		return json_encode($ar);
+		$test=1;
+		if($test==1){
+			$re=110;
+		}
+		else{
+			$re=220;
+		}
+		echo $re; 
+		return "";
 	}
 
 }

@@ -16,8 +16,14 @@ class CustomerAuthenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if($request && $request->username && $request->password){
-			$record=Customer::where('name',$request->username)->pluck('password');
+		if($request && ($request->username||$request->uid) && $request->password){
+			if($request->uid){
+				$record = Customer::find($request->uid);
+				if($record) $record = $record->password;
+			}
+			else{
+				$record = Customer::where('name',$request->username)->pluck('password');
+			}
 			if(!$record){
 				return APIResponse::errorResult("用户不存在");
 			}

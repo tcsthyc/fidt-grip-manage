@@ -54,4 +54,29 @@ class UserAPIController extends Controller {
         }
 
 	}
+
+    public function postUpdate(Request $request){
+        try{
+            if($request->uid){
+                $customer = Customer::find($request->uid);
+            }
+            else{
+                $customer = Customer::where('name',$request->username)->first();
+            }
+            
+            if($request->age) $customer->age=$request->age;
+            if($request->sex) $customer->sex=$request->sex;
+            if($request->height) $customer->height=$request->height;
+            if($request->weight) $customer->weight=$request->weight;
+            if($request->bfp) $customer->bfp=$request->bfp;
+            if($request->telephone) $customer->telephone=$request->telephone;
+            if($request->avatar) $customer->avatar=$request->avatar;
+            $customer->save();
+
+            return APIResponse::successResult($customer);
+        }
+        catch(Exception $e){
+            return APIResponse::errorResult('服务器发生错误');
+        }
+    }
 }
