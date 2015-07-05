@@ -25,7 +25,7 @@ class UserAPIController extends Controller {
 	}
 
 	public function postLogin(Request $request){
-        $customer = Customer::where('name',$request->username)->toArray();
+        $customer = Customer::where('name',$request->username)->first()->toArray();
         return APIResponse::successResult($customer);
 	}
 
